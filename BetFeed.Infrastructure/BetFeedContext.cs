@@ -14,8 +14,6 @@ namespace BetFeed.Infrastructure
 
         public virtual IDbSet<Bet> Bets { get; set; }
 
-        public virtual IDbSet<Category> Categories { get; set; }
-
         public virtual IDbSet<Event> Events { get; set; }
 
         public virtual IDbSet<Match> Matches { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace BetFeed.Infrastructure.Repository
 {
@@ -21,5 +22,7 @@ namespace BetFeed.Infrastructure.Repository
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
 
         T Get(Expression<Func<T, bool>> where);
+
+        void SaveChanges();
     }
 }

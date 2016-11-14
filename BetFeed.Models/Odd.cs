@@ -1,4 +1,7 @@
-﻿namespace BetFeed.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BetFeed.Models
 {
     public class Odd
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BetFeed.Infrastructure.Repository
@@ -17,6 +17,7 @@ namespace BetFeed.Infrastructure.Repository
         public EfRepository(BetFeedContext context)
         {
             this.dataContext = context;
+            this.dataContext.Configuration.AutoDetectChangesEnabled = false;
             dbSet = this.dataContext.Set<T>();
         }
 
@@ -61,6 +62,11 @@ namespace BetFeed.Infrastructure.Repository
         public T Get(Expression<Func<T, bool>> where)
         {
             return dbSet.Where(where).FirstOrDefault<T>();
+        }
+
+        public void SaveChanges()
+        {
+            this.dataContext.SaveChanges();
         }
     }
 }

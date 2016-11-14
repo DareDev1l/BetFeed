@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BetFeed.Models
 {
@@ -8,16 +10,16 @@ namespace BetFeed.Models
         {
             this.Matches = new HashSet<Match>();
         }
-
+        
         public int Id { get; set; }
+
+        public string CategoryName { get; set; }
 
         public string Name { get; set; }
 
         public bool IsLive { get; set; }
 
         public int CategoryId { get; set; }
-
-        public virtual Category Category { get; set; }
 
         public virtual ICollection<Match> Matches { get; set; }
     }

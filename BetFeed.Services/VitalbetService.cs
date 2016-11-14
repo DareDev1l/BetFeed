@@ -1,33 +1,45 @@
-﻿using BetFeed.Infrastructure.Repository;
+﻿using BetFeed.Infrastructure;
+using BetFeed.Infrastructure.Repository;
 using BetFeed.Models;
+using BetFeed.Services.Inferfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
 namespace BetFeed.Services
 {
-    public class VitalbetService
+    public class VitalbetService : IVitalbetService
     {
         private string sportsFeedXmlUri = "http://vitalbet.net/sportxml";
         private IRepository<Sport> sportRepository;
+        private BetFeedContext ctx;
 
 
+        /*
         public VitalbetService(IRepository<Sport> sportRepository)
         {
             this.sportRepository = sportRepository;
         }
+        */
+
+        public VitalbetService()
+        {
+            ctx = new BetFeedContext();
+        }
         
-        public async Task UpdateSportsFeed()
+        public async Task GetSportsFeed()
         {
             var sportsList = await this.ParseSportsFeedFromXml();
 
             foreach (var sport in sportsList)
             {
-                this.sportRepository.Add(sport);
+                this.ctx.Sports.Add(sport);
+                this.ctx.SaveChanges();
+                this.ctx.Dispose();
+                this.ctx = new BetFeedContext();
             }
         }
 
@@ -66,9 +78,12 @@ namespace BetFeed.Services
 
                     currentEvent = new Event();
 
+                    var currentEventNameParts = xmlReader.GetAttribute("Name").Split(new char[] {','});
+
                     currentEvent.Id = int.Parse(xmlReader.GetAttribute("ID"));
-                    currentEvent.Name = xmlReader.GetAttribute("Name");
-                    currentEvent.CategoryId = int.Parse(xmlReader.GetAttribute("CategoryId"));
+                    currentEvent.CategoryName = currentEventNameParts[0];
+                    currentEvent.Name = currentEventNameParts[1];
+                    currentEvent.CategoryId = int.Parse(xmlReader.GetAttribute("CategoryID"));
                     currentEvent.IsLive = bool.Parse(xmlReader.GetAttribute("IsLive"));
                 }
 
@@ -113,10 +128,16 @@ namespace BetFeed.Services
                     currentOdd.Id = int.Parse(xmlReader.GetAttribute("ID"));
                     currentOdd.Name = xmlReader.GetAttribute("Name");
                     currentOdd.Value = decimal.Parse(xmlReader.GetAttribute("Value"));
-                    currentOdd.SpecialBetValue = decimal.Parse(xmlReader.GetAttribute("SpecialBetValue"));
+                    string specialBetValue = xmlReader.GetAttribute("SpecialBetValue");
+
+                    if(!String.IsNullOrEmpty(specialBetValue))
+                    {
+                        currentOdd.SpecialBetValue = decimal.Parse(xmlReader.GetAttribute("SpecialBetValue"));
+                    }
                 }
             }
 
+            sportsList.Add(currentSport);
             return sportsList;
         }
 
