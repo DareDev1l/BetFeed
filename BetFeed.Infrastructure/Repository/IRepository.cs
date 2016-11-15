@@ -15,6 +15,8 @@ namespace BetFeed.Infrastructure.Repository
 
         void Delete(Expression<Func<T, bool>> where);
 
+        void AddOrUpdate(T entity);
+
         T GetById(int id);
 
         IEnumerable<T> GetAll();

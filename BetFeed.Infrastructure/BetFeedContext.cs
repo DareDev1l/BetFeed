@@ -8,6 +8,7 @@ namespace BetFeed.Infrastructure
         public BetFeedContext()
             : base("BetFeedDb")
         {
+            this.Configuration.AutoDetectChangesEnabled = false;
         }
 
         public virtual IDbSet<Sport> Sports { get; set; }

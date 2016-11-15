@@ -1,20 +1,17 @@
-﻿using System;
+﻿using BetFeed.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BetFeed.Models
 {
-    public class Match
+    public class Match : BaseModel
     {
         public Match()
         {
             this.Bets = new HashSet<Bet>();
         }
-        
-        public int Id { get; set; }
-
-        public string Name { get; set; }
 
         public DateTime StartDate { get; set; }
 

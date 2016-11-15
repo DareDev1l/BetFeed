@@ -1,11 +1,11 @@
-﻿using BetFeed.Infrastructure;
-using BetFeed.Infrastructure.Repository;
+﻿using BetFeed.Infrastructure.Repository;
 using BetFeed.Models;
 using BetFeed.Services.Inferfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -15,19 +15,11 @@ namespace BetFeed.Services
     {
         private string sportsFeedXmlUri = "http://vitalbet.net/sportxml";
         private IRepository<Sport> sportRepository;
-        private BetFeedContext ctx;
 
 
-        /*
         public VitalbetService(IRepository<Sport> sportRepository)
         {
             this.sportRepository = sportRepository;
-        }
-        */
-
-        public VitalbetService()
-        {
-            ctx = new BetFeedContext();
         }
         
         public async Task GetSportsFeed()
@@ -36,11 +28,10 @@ namespace BetFeed.Services
 
             foreach (var sport in sportsList)
             {
-                this.ctx.Sports.Add(sport);
-                this.ctx.SaveChanges();
-                this.ctx.Dispose();
-                this.ctx = new BetFeedContext();
+                this.sportRepository.Add(sport);
             }
+
+            this.sportRepository.SaveChanges();
         }
 
         private async Task<List<Sport>> ParseSportsFeedFromXml()
@@ -54,6 +45,8 @@ namespace BetFeed.Services
             var currentMatch = new Match();
             var currentBet = new Bet();
             var currentOdd = new Odd();
+
+            bool currentMatchIsWithin24Hours = true;
 
             while (xmlReader.Read())
             {
@@ -78,11 +71,8 @@ namespace BetFeed.Services
 
                     currentEvent = new Event();
 
-                    var currentEventNameParts = xmlReader.GetAttribute("Name").Split(new char[] {','});
-
                     currentEvent.Id = int.Parse(xmlReader.GetAttribute("ID"));
-                    currentEvent.CategoryName = currentEventNameParts[0];
-                    currentEvent.Name = currentEventNameParts[1];
+                    currentEvent.Name = xmlReader.GetAttribute("Name");
                     currentEvent.CategoryId = int.Parse(xmlReader.GetAttribute("CategoryID"));
                     currentEvent.IsLive = bool.Parse(xmlReader.GetAttribute("IsLive"));
                 }
@@ -91,7 +81,10 @@ namespace BetFeed.Services
                 {
                     if (!String.IsNullOrEmpty(currentMatch.Name))
                     {
-                        currentEvent.Matches.Add(currentMatch);
+                        if(currentMatchIsWithin24Hours == true)
+                        {
+                            currentEvent.Matches.Add(currentMatch);
+                        }
                     }
 
                     currentMatch = new Match();
@@ -99,6 +92,19 @@ namespace BetFeed.Services
                     currentMatch.Id = int.Parse(xmlReader.GetAttribute("ID"));
                     currentMatch.Name = xmlReader.GetAttribute("Name");
                     currentMatch.StartDate = DateTime.Parse(xmlReader.GetAttribute("StartDate"));
+
+                    var tomorrow = DateTime.Now.AddDays(1);
+                    var now = DateTime.Now;
+
+                    if(currentMatch.StartDate > tomorrow || currentMatch.StartDate < now)
+                    {
+                        currentMatchIsWithin24Hours = false;
+                    }
+                    else
+                    {
+                        currentMatchIsWithin24Hours = true;
+                    }
+
                     currentMatch.MatchType = xmlReader.GetAttribute("MatchType");
                 }
 
@@ -128,16 +134,14 @@ namespace BetFeed.Services
                     currentOdd.Id = int.Parse(xmlReader.GetAttribute("ID"));
                     currentOdd.Name = xmlReader.GetAttribute("Name");
                     currentOdd.Value = decimal.Parse(xmlReader.GetAttribute("Value"));
-                    string specialBetValue = xmlReader.GetAttribute("SpecialBetValue");
 
-                    if(!String.IsNullOrEmpty(specialBetValue))
+                    if(xmlReader.GetAttribute("SpecialBetValue") != null)
                     {
                         currentOdd.SpecialBetValue = decimal.Parse(xmlReader.GetAttribute("SpecialBetValue"));
                     }
                 }
             }
 
-            sportsList.Add(currentSport);
             return sportsList;
         }
 

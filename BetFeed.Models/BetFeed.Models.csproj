@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseModel.cs" />
+    <Compile Include="Base\IBaseModel.cs" />
     <Compile Include="Bet.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Match.cs" />

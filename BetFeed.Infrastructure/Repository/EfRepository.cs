@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetFeed.Models.Base;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace BetFeed.Infrastructure.Repository
 {
     public class EfRepository<T> : IRepository<T>
-        where T : class
+        where T : class , IBaseModel
     {
         private BetFeedContext dataContext;
         private readonly IDbSet<T> dbSet;
@@ -18,50 +19,62 @@ namespace BetFeed.Infrastructure.Repository
         {
             this.dataContext = context;
             this.dataContext.Configuration.AutoDetectChangesEnabled = false;
-            dbSet = this.dataContext.Set<T>();
+            this.dbSet = this.dataContext.Set<T>();
         }
 
         public virtual void Add(T entity)
         {
-            dbSet.Add(entity);
+            this.dbSet.Add(entity);
         }
 
         public virtual void Update(T entity)
         {
-            dbSet.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
+            this.dbSet.Attach(entity);
+            this.dataContext.Entry(entity).State = EntityState.Modified;
+        }
+
+        public void AddOrUpdate(T entity)
+        {
+            if (this.GetById(entity.Id) == null)
+            {
+                this.Update(entity);
+            }
+            else
+            {
+                this.Add(entity);
+            }
         }
 
         public virtual void Delete(T entity)
         {
-            dbSet.Remove(entity);
+            this.dbSet.Remove(entity);
         }
 
         public virtual void Delete(Expression<Func<T, bool>> where)
         {
-            IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();
+            IEnumerable<T> objects = this.dbSet.Where<T>(where).AsEnumerable();
             foreach (T obj in objects)
-                dbSet.Remove(obj);
+                this.dbSet.Remove(obj);
         }
 
         public virtual T GetById(int id)
         {
-            return dbSet.Find(id);
+            return this.dbSet.Find(id);
         }
 
         public virtual IEnumerable<T> GetAll()
         {
-            return dbSet.ToList();
+            return this.dbSet.ToList();
         }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
         {
-            return dbSet.Where(where).ToList();
+            return this.dbSet.Where(where).ToList();
         }
 
         public T Get(Expression<Func<T, bool>> where)
         {
-            return dbSet.Where(where).FirstOrDefault<T>();
+            return this.dbSet.Where(where).FirstOrDefault<T>();
         }
 
         public void SaveChanges()
