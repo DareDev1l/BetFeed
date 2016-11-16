@@ -25,11 +25,18 @@ namespace BetFeed.Infrastructure.Repository
             // Eager load bets
         }
 
+        // TODO: load new bets and odds if matches are updated
         public override void Update(Sport entity)
         {
             var originalEntity = this.GetById(entity.Id);
+            
+            if(originalEntity == null)
+            {
+                this.Add(entity);
+                return;
+            }
 
-            // Eager load the hierarchy in entity
+            // Eager load the hierarchy in originalEntity
             foreach (var sportEvent in originalEntity.Events)
             {
                 var matches = sportEvent.Matches;
@@ -44,57 +51,27 @@ namespace BetFeed.Infrastructure.Repository
                     }
                 }
             }
-            
-            var allBets = betRepository.GetAll();
-            var allOdds = oddRepository.GetAll();
-            
+
             foreach (var sportEvent in entity.Events)
             {
-                var eventToAdd = new Event();
-                
-                if(!originalEntity.Events.Any(ev => ev.Id == sportEvent.Id))
+                // If event exists in original entity check for matches to update
+                if (originalEntity.Events.Any(ev => ev.Id == sportEvent.Id))
                 {
-                    originalEntity.Events.Add(sportEvent);
+                    var originalEntityEvent = originalEntity.Events.First(ev => ev.Id == sportEvent.Id);
 
                     foreach (var match in sportEvent.Matches)
                     {
-                        var betsToReplace = new HashSet<Bet>();
-
-                        foreach (var bet in match.Bets)
+                        if (!originalEntityEvent.Matches.Any(m => m.Id == match.Id))
                         {
-                            var oddsToReplace = new HashSet<Odd>();
-
-                            if(allBets.Any(b => b.Id == bet.Id))
-                            {
-                                betsToReplace.Add(bet);
-                            }
-
-                            foreach (var odd in bet.Odds)
-                            {
-                                if(allOdds.Any(o => o.Id == odd.Id))
-                                {
-                                    oddsToReplace.Add(odd);
-                                }
-                            }
-
-                            foreach (var oddToReplace in oddsToReplace)
-                            {
-                                bet.Odds.Remove(oddToReplace);
-                                // Add the odd back 
-                            }
-                        }
-
-                        // Rmove identical bets
-
-                        foreach (var betToReplace in betsToReplace)
-                        {
-                            match.Bets.Remove(betToReplace);
-                            // match.Bets.Add(allBets.ToList().Find(b => b.Id == betToReplace.Id));
+                            originalEntityEvent.Matches.Add(match);
                         }
                     }
                 }
+                else
+                {
+                    originalEntity.Events.Add(sportEvent);
+                }
             }
-           
 
             var entityInContext = this.dataContext.Entry(originalEntity);
             entityInContext.State = EntityState.Modified;
