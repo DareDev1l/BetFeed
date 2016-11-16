@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
@@ -10,16 +11,16 @@ using System.Threading.Tasks;
 namespace BetFeed.Infrastructure.Repository
 {
     public class EfRepository<T> : IRepository<T>
-        where T : class , IBaseModel
+        where T : class, IBaseModel
     {
         private BetFeedContext dataContext;
         private readonly IDbSet<T> dbSet;
-       
+
         public EfRepository(BetFeedContext context)
         {
             this.dataContext = context;
-            this.dataContext.Configuration.AutoDetectChangesEnabled = false;
             this.dbSet = this.dataContext.Set<T>();
+            var list = this.dbSet.ToList();
         }
 
         public virtual void Add(T entity)
@@ -30,21 +31,9 @@ namespace BetFeed.Infrastructure.Repository
         public virtual void Update(T entity)
         {
             this.dbSet.Attach(entity);
-            this.dataContext.Entry(entity).State = EntityState.Modified;
+            var entityInContext = this.dataContext.Entry(entity);
+            entityInContext.State = EntityState.Modified;
         }
-
-        public void AddOrUpdate(T entity)
-        {
-            if (this.GetById(entity.Id) == null)
-            {
-                this.Update(entity);
-            }
-            else
-            {
-                this.Add(entity);
-            }
-        }
-
         public virtual void Delete(T entity)
         {
             this.dbSet.Remove(entity);

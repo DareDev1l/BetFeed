@@ -12,10 +12,5 @@ namespace BetFeed.Services
         {
             this.eventRepository = eventRepository;
         }
-
-        public void AddOrUpdate(Event eventToAdd)
-        {
-            this.eventRepository.AddOrUpdate(eventToAdd);
-        }
     }
 }

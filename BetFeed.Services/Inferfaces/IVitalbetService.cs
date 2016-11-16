@@ -4,6 +4,8 @@ namespace BetFeed.Services.Inferfaces
 {
     public interface IVitalbetService
     {
-        Task GetSportsFeed();
+        Task UpdateSportsFeed();
+
+        Task SeedSportsFeed();
     }
 }

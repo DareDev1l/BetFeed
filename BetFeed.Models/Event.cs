@@ -19,5 +19,8 @@ namespace BetFeed.Models
         public int CategoryId { get; set; }
 
         public virtual ICollection<Match> Matches { get; set; }
+
+        //[ForeignKey("Sport_Id")]
+        //public int SportId { get; set; }
     }
 }

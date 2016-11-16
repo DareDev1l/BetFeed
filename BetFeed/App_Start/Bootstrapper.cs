@@ -40,7 +40,7 @@ namespace BetFeed.App_Start
                 .InstancePerRequest();
 
             //Register custom repositories
-            builder.RegisterType<EfRepository<Sport>>().As<IRepository<Sport>>();
+            builder.RegisterType<SportRepository>().As<IRepository<Sport>>();
             builder.RegisterType<EfRepository<Event>>().As<IRepository<Event>>();
             builder.RegisterType<EfRepository<Bet>>().As<IRepository<Bet>>();
             builder.RegisterType<EfRepository<Match>>().As<IRepository<Match>>();

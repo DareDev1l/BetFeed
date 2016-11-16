@@ -19,5 +19,8 @@ namespace BetFeed.Models
         public string MatchType { get; set; }
 
         public virtual ICollection<Bet> Bets { get; set; }
+
+        //[ForeignKey("Event_Id")]
+        //public int EventId { get; set; }
     }
 }

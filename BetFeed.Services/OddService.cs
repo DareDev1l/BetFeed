@@ -12,10 +12,5 @@ namespace BetFeed.Services
         {
             this.oddRepository = oddRepository;
         }
-
-        public void AddOrUpdate(Odd odd)
-        {
-            this.oddRepository.AddOrUpdate(odd);
-        }
     }
 }

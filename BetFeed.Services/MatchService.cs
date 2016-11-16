@@ -12,10 +12,5 @@ namespace BetFeed.Services
         {
             this.matchRepository = matchRepository;
         }
-
-        public void AddOrUpdate(Match match)
-        {
-            this.matchRepository.AddOrUpdate(match);
-        }
     }
 }

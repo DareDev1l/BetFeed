@@ -4,6 +4,5 @@ namespace BetFeed.Services.Inferfaces
 {
     public interface IBetService
     {
-        void AddOrUpdate(Bet bet);
     }
 }

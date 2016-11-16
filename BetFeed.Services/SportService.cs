@@ -12,10 +12,5 @@ namespace BetFeed.Services
         {
             this.sportRepository = sportRepository;
         }
-
-        public void AddOrUpdate(Sport sport)
-        {
-            this.sportRepository.AddOrUpdate(sport);
-        }
     }
 }

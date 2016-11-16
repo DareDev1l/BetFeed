@@ -4,6 +4,5 @@ namespace BetFeed.Services.Inferfaces
 {
     public interface IEventService
     {
-        void AddOrUpdate(Event eventToAdd);
     }
 }

@@ -16,7 +16,13 @@ namespace BetFeed.Controllers
         [HttpPost]
         public async Task UpdateFeed()
         {
-            await this.vitalBetService.GetSportsFeed();
+            await this.vitalBetService.UpdateSportsFeed();
+        }
+
+        [HttpGet]
+        public async Task SeedSportsFeed()
+        {
+            await this.vitalBetService.SeedSportsFeed();
         }
     }
 }

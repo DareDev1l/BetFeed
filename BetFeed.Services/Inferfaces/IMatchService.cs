@@ -4,6 +4,5 @@ namespace BetFeed.Services.Inferfaces
 {
     public interface IMatchService
     {
-        void AddOrUpdate(Match match);
     }
 }
