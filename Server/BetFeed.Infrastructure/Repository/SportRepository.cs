@@ -48,6 +48,11 @@ namespace BetFeed.Infrastructure.Repository
                     foreach (var bet in bets)
                     {
                         var odds = bet.Odds;
+
+                        foreach (var odd in odds)
+                        {
+                            var oddId = odd.Id;
+                        }
                     }
                 }
             }
@@ -64,6 +69,35 @@ namespace BetFeed.Infrastructure.Repository
                         if (!originalEntityEvent.Matches.Any(m => m.Id == match.Id))
                         {
                             originalEntityEvent.Matches.Add(match);
+                        }
+                        else
+                        {
+                            var originalEntityMatch = originalEntityEvent.Matches.First(m => m.Id == match.Id);
+
+                            foreach (var bet in match.Bets)
+                            {
+                                if(!originalEntityMatch.Bets.Any(b => b.Id == bet.Id))
+                                {
+                                    originalEntityMatch.Bets.Add(bet);
+                                }
+                                else
+                                {
+                                    var originalEntityMatchBet = originalEntityMatch.Bets.First(b => b.Id == bet.Id);
+
+                                    foreach (var odd in bet.Odds)
+                                    {
+                                        if (!originalEntityMatchBet.Odds.Any(o => o.Id == odd.Id))
+                                        {
+                                            originalEntityMatchBet.Odds.Add(odd);
+                                        }
+
+                                        if(odd.Id == 41903006)
+                                        {
+
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
