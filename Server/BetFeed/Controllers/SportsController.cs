@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using AutoMapper;
 
 namespace BetFeed.Controllers
 {
@@ -36,29 +37,7 @@ namespace BetFeed.Controllers
                 return NotFound();
             }
 
-            var sportViewModel = new SportViewModel();
-            sportViewModel.Name = sport.Name;
-            sportViewModel.Id = sport.Id;
-            sportViewModel.Events = new HashSet<EventViewModel>();
-
-            foreach (var sportEvent in sport.Events)
-            {
-                var eventViewModel = new EventViewModel();
-                eventViewModel.Name = sportEvent.Name;
-                eventViewModel.Matches = new HashSet<MatchViewModel>();
-                eventViewModel.Id = sportEvent.Id;
-
-                foreach (var match in sportEvent.Matches)
-                {
-                    eventViewModel.Matches.Add(new MatchViewModel()
-                    {
-                        Name = match.Name,
-                        StartDate = match.StartDate
-                    });
-                }
-
-                sportViewModel.Events.Add(eventViewModel);
-            }
+            var sportViewModel = Mapper.Map<Sport, SportViewModel>(sport);
 
             return Json(sportViewModel);
         }

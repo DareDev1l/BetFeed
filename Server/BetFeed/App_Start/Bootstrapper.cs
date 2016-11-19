@@ -7,14 +7,33 @@ using BetFeed.Services;
 using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
+using System;
+using BetFeed.ViewModels;
+using AutoMapper;
 
 namespace BetFeed.App_Start
 {
     public static class Bootstrapper
     {
+        // This class breaks single responsibility, extract those 2 methods in different classes :
+        // - AutoFacCondif
+        // - AutoMapperConfig
+        // Then call the static methods in global.asax
         public static void Run()
         {
             SetAutofacContainer();
+            RegisterAutoMapper();
+        }
+
+        private static void RegisterAutoMapper()
+        {
+            Mapper.Initialize(cfg => {
+                cfg.CreateMap<Sport, SportViewModel>();
+                cfg.CreateMap<Event, EventViewModel>();
+                cfg.CreateMap<Match, MatchViewModel>();
+            });
+
+            Mapper.AssertConfigurationIsValid();
         }
 
         private static void SetAutofacContainer()
