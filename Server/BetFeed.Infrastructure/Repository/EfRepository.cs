@@ -20,7 +20,6 @@ namespace BetFeed.Infrastructure.Repository
         {
             this.dataContext = context;
             this.dbSet = this.dataContext.Set<T>();
-            var list = this.dbSet.ToList();
         }
 
         public virtual void Add(T entity)

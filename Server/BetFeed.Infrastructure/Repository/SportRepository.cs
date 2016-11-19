@@ -12,15 +12,11 @@ namespace BetFeed.Infrastructure.Repository
     {
         protected BetFeedContext dataContext;
         protected readonly IDbSet<Sport> dbSet;
-        private IRepository<Bet> betRepository;
-        private IRepository<Odd> oddRepository;
 
-        public SportRepository(BetFeedContext context, IRepository<Bet> betRepository, IRepository<Odd> oddRepository) : base(context)
+        public SportRepository(BetFeedContext context) : base(context)
         {
             this.dataContext = context;
             this.dbSet = this.dataContext.Set<Sport>();
-            this.betRepository = betRepository;
-            this.oddRepository = oddRepository;
 
             // Eager load bets
         }
@@ -109,6 +105,11 @@ namespace BetFeed.Infrastructure.Repository
 
             var entityInContext = this.dataContext.Entry(originalEntity);
             entityInContext.State = EntityState.Modified;
+        }
+
+        public override Sport GetById(int id)
+        {
+            return this.dbSet.Include("Events.Matches.Bets.Odds").First(x => x.Id == id);
         }
     }
 }

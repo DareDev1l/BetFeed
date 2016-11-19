@@ -1,19 +1,19 @@
 {
   "name": "BetFeed",
   "authors": [
-    "Teodor Hanev"
+    "Teodor <tedko_97@abv.bg>"
   ],
-  "description": "Angular application for consuming REST Api to display bets information",
-  "main": "index.html",
+  "description": "Web application for consuming REST Api from vitalbet",
+  "main": "app.js",
   "keywords": [
+    "bet",
     "betfeed",
-    "bets",
-    "feed",
     "vitalbet",
-    "angular"
+    "angular",
+    "webapi2"
   ],
   "license": "MIT",
-  "homepage": "index.html",
+  "homepage": "",
   "private": true,
   "ignore": [
     "**/.*",
@@ -23,9 +23,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "2.2.4",
     "angular": "^1.5.8",
     "bootstrap": "^3.3.7",
     "bootswatch-dist": "darkly",
+    "jquery": "2.2.4",
+    "angular-route": "^1.5.8"
   }
 }

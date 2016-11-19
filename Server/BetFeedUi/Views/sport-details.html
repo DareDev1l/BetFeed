@@ -1,0 +1,15 @@
+﻿<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{sportCtrl.sport.Name}}</h3>
+            </div>
+            <div class="panel-body" >
+                <div ng-repeat="sportEvent in sportCtrl.sport.Events">
+                    <a href="#/{{sportCtrl.sport.Id}}/{{sportEvent.Id}}">{{sportEvent.Name}}</a>
+                    <div class="divider"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
