@@ -7,7 +7,7 @@
             <div class="panel-body" >
                 <ul class="list-group">
                     <li ng-repeat="eventCategory in sportCtrl.sport.Categories" class="list-group-item">
-                        <h4>{{eventCategory.Name}}</h4>
+                        <h4>{{eventCategory.Name}}  <span class="badge">{{eventCategory.Events.length}}</span></h4>
                         <ul style="list-style-type:none">
                             <li ng-repeat="sportEvent in eventCategory.Events">
                                 <a href="#/sport/{{sportCtrl.sport.Id}}/{{sportEvent.Id}}">{{sportEvent.Name}}</a>
@@ -15,10 +15,6 @@
                         </ul>
                     </li>
                 </ul>
-                    <div ng-repeat="sportEvent in sportCtrl.sport.Events">
-                        
-                        <div class="divider"></div>
-                    </div>
             </div>
         </div>
     </div>
