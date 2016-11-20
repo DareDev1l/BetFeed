@@ -2,13 +2,23 @@
     <div class="col-lg-3 col-md-3 col-sm-4" ng-controller="SportsController as sportCtrl">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">{{sportCtrl.sport.Name}}</h3>
+                <div class="panel-title"><h3>{{sportCtrl.sport.Name}}</h3></div>
             </div>
             <div class="panel-body" >
-                <div ng-repeat="sportEvent in sportCtrl.sport.Events">
-                    <a href="#/sport/{{sportCtrl.sport.Id}}/{{sportEvent.Id}}">{{sportEvent.Name}}</a>
-                    <div class="divider"></div>
-                </div>
+                <ul class="list-group">
+                    <li ng-repeat="eventCategory in sportCtrl.sport.Categories" class="list-group-item">
+                        <h4>{{eventCategory.Name}}</h4>
+                        <ul style="list-style-type:none">
+                            <li ng-repeat="sportEvent in eventCategory.Events">
+                                <a href="#/sport/{{sportCtrl.sport.Id}}/{{sportEvent.Id}}">{{sportEvent.Name}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                    <div ng-repeat="sportEvent in sportCtrl.sport.Events">
+                        
+                        <div class="divider"></div>
+                    </div>
             </div>
         </div>
     </div>
