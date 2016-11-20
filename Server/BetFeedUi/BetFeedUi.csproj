@@ -127,6 +127,8 @@
     <Content Include="Content\bootstrap.darkly.css" />
     <Content Include="Content\bootstrap.darkly.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Controllers\MenuController.js" />
+    <Content Include="Controllers\SportsController.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="index.html" />
     <Content Include="Scripts\angular-animate.js" />
@@ -913,6 +915,8 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Services\EventsService.js" />
+    <Content Include="Services\SportsService.js" />
     <Content Include="Views\event-details.html" />
     <Content Include="Views\sport-details.html" />
     <Content Include="Web.config" />
