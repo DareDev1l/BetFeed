@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-4">
+    <div class="col-lg-3 col-md-3 col-sm-4" ng-controller="SportsController as sportCtrl">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">{{sportCtrl.sport.Name}}</h3>
@@ -11,5 +11,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-4" ng-controller="EventsController as eventCtrl">
+        <div ng-include="event-details.html"></div>
     </div>
 </div>

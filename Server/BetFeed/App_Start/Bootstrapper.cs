@@ -28,9 +28,16 @@ namespace BetFeed.App_Start
         private static void RegisterAutoMapper()
         {
             Mapper.Initialize(cfg => {
-                cfg.CreateMap<Sport, SportViewModel>();
+                cfg.CreateMap<Sport, SportViewModel>()
+                    .ForMember(dest => dest.Categories, opt => opt.Ignore());
                 cfg.CreateMap<Event, EventViewModel>();
                 cfg.CreateMap<Match, MatchViewModel>();
+
+                cfg.CreateMap<Sport, SportWithNameAndId>()
+                    .ForMember(dest => dest.SportId, opt => opt.MapFrom(sport => sport.Id))
+                    .ForMember(dest => dest.SportName, opt => opt.MapFrom(sport => sport.Name));
+
+                cfg.CreateMap<Event, EventWithMatchesViewModel>();
             });
 
             Mapper.AssertConfigurationIsValid();

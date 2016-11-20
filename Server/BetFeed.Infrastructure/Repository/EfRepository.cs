@@ -52,7 +52,9 @@ namespace BetFeed.Infrastructure.Repository
 
         public virtual IEnumerable<T> GetAll()
         {
-            return this.dbSet.ToList();
+            var all = this.dbSet.ToList();
+
+            return all;
         }
 
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)

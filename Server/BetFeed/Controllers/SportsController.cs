@@ -22,8 +22,9 @@ namespace BetFeed.Controllers
             this.sportRepository = sportRepository;
         }
 
-        // GET api/<controller>/5
-        public IHttpActionResult Get(int id)
+        // GET api/sports/sport/id
+        [HttpGet]
+        public IHttpActionResult Sport(int id)
         {
             if(id == 0)
             {
@@ -39,7 +40,42 @@ namespace BetFeed.Controllers
 
             var sportViewModel = Mapper.Map<Sport, SportViewModel>(sport);
 
+            foreach (var sportEvent in sportViewModel.Events)
+            {
+                if(!sportViewModel.Categories.Any(x => x.Name == sportEvent.CategoryName))
+                {
+                    var categoryViewModel = new CategoryViewModel();
+
+                    categoryViewModel.Name = sportEvent.CategoryName;
+                    categoryViewModel.Events.Add(sportEvent);
+
+                    sportViewModel.Categories.Add(categoryViewModel);
+                }
+                else
+                {
+                    sportViewModel.Categories.First(x => x.Name == sportEvent.CategoryName).Events.Add(sportEvent);
+                }
+            }
+
+            sportViewModel.Events = null;
+
             return Json(sportViewModel);
+        }
+
+        // GET api/Sports/NamesAndIds
+        [HttpGet]
+        public IHttpActionResult NamesAndIds()
+        {
+            var sports = this.sportRepository.GetAll();
+
+            if (sports == null)
+            {
+                return NotFound();
+            }
+
+            var sportNamesAndIds = Mapper.Map<IEnumerable<Sport>, IEnumerable<SportWithNameAndId>>(sports);
+
+            return Json(sportNamesAndIds);
         }
     }
 }

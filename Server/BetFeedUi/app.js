@@ -6,6 +6,11 @@
         $routeProvider
             .when('/sport/:id', {
                 templateUrl: 'Views/sport-details.html',
+                controller: 'SportsController'//,
+                //controllerAs: 'sportCtrl'
+            })
+            .when('/sport/:sportId/:eventId', {
+                templateUrl: 'Views/sport-details.html',
                 controller: 'SportsController',
                 controllerAs: 'sportCtrl'
             })
@@ -15,14 +20,26 @@
     }]);
 
     app.factory("SportsService", ['$http', function ($http) {
-        var apiUri = "http://localhost:54540/api/Sports/";
+        var apiUri = "http://localhost:54540/api/Sports/sport/";
 
-        function GetSportsEvents(id) {
-            return $http.get(apiUri + id);
+        function GetSportsEvents(sportId) {
+            return $http.get(apiUri + sportId);
         };
 
         return {
             GetSportsEvents: GetSportsEvents
+        }
+    }]);
+
+    app.factory("EventsService", ['$http', function ($http) {
+        var apiUri = "http://localhost:54540/api/Events/event/";
+
+        function GetEventMatches(eventId) {
+            return $http.get(apiUri + eventId);
+        };
+
+        return {
+            GetEventMatches: GetEventMatches
         }
     }]);
 

@@ -5,12 +5,14 @@ using System.Web;
 
 namespace BetFeed.ViewModels
 {
-    public class EventViewModel
+    public class EventWithMatchesViewModel
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string CategoryName { get; set; }
+
+        public ICollection<MatchViewModel> Matches { get; set; }
     }
 }
