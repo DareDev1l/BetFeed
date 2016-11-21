@@ -30,7 +30,8 @@ namespace BetFeed.App_Start
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Sport, SportViewModel>()
                     .ForMember(dest => dest.Categories, opt => opt.Ignore());
-                cfg.CreateMap<Event, EventViewModel>();
+                cfg.CreateMap<Event, EventViewModel>()
+                    .ForMember(dest => dest.MatchCount, opt => opt.Ignore());
                 cfg.CreateMap<Match, MatchViewModel>();
 
                 cfg.CreateMap<Sport, SportWithNameAndId>()

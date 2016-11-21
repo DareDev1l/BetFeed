@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using AutoMapper;
+using BetFeed.Helpers;
 
 namespace BetFeed.Controllers
 {
@@ -40,6 +41,8 @@ namespace BetFeed.Controllers
 
             var sportViewModel = Mapper.Map<Sport, SportViewModel>(sport);
 
+
+            // Group by category
             foreach (var sportEvent in sportViewModel.Events)
             {
                 if(!sportViewModel.Categories.Any(x => x.Name == sportEvent.CategoryName))

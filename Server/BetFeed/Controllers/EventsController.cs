@@ -9,6 +9,7 @@ using System.Web.Http;
 using AutoMapper;
 using System.Web.Http.Cors;
 using BetFeed.ViewModels;
+using BetFeed.Helpers;
 
 namespace BetFeed.Controllers
 {
@@ -37,6 +38,22 @@ namespace BetFeed.Controllers
                 return NotFound();
             }
 
+            // Get only matches from today
+            var matchesToRemove = new HashSet<Match>();
+            
+            foreach (var match in sportEvent.Matches)
+            {
+                if (!DateHelper.IsWithin24Hours(match.StartDate))
+                {
+                    matchesToRemove.Add(match);
+                }
+            }
+
+            foreach (var matchToRemove in matchesToRemove)
+            {
+                sportEvent.Matches.Remove(matchToRemove);
+            }
+            
             var eventViewModel = Mapper.Map<Event, EventWithMatchesViewModel>(sportEvent);
 
             return Json(eventViewModel);

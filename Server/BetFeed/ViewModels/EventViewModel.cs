@@ -12,5 +12,7 @@ namespace BetFeed.ViewModels
         public string Name { get; set; }
 
         public string CategoryName { get; set; }
+
+        public int MatchCount { get; set; }
     }
 }

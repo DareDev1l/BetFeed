@@ -86,11 +86,6 @@ namespace BetFeed.Infrastructure.Repository
                                         {
                                             originalEntityMatchBet.Odds.Add(odd);
                                         }
-
-                                        if(odd.Id == 41903006)
-                                        {
-
-                                        }
                                     }
                                 }
                             }
@@ -109,7 +104,7 @@ namespace BetFeed.Infrastructure.Repository
 
         public override Sport GetById(int id)
         {
-            return this.dbSet.Include("Events.Matches.Bets.Odds").First(x => x.Id == id);
+            return this.dbSet.Include("Events.Matches.Bets.Odds").FirstOrDefault(x => x.Id == id);
         }
     }
 }

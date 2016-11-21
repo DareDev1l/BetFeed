@@ -1,0 +1,31 @@
+﻿.match-date {
+    padding: 5px;
+    margin-right:4px !important;
+    margin-bottom : 4px;
+    display: inline-block;
+}
+
+.match-name {
+    display: inline-block;
+    padding: 5px;
+    margin-left: 4px !important;
+    margin-bottom : 4px;
+}
+
+.list-group-item {
+    border: none !important;
+}
+
+.event-header {
+    margin-bottom: 45px;
+}
+
+.match-holder {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.match-holder:hover {
+    background-color: #375A7F;
+    cursor: pointer;
+}
