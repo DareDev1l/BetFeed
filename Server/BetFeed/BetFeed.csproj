@@ -145,6 +145,7 @@
     <Compile Include="App_Start\Bootstrapper.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\SportsController.cs" />
     <Compile Include="Controllers\VitalbetController.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,6 +158,7 @@
     <Compile Include="ViewModels\EventViewModel.cs" />
     <Compile Include="ViewModels\EventWithMatchesViewModel.cs" />
     <Compile Include="ViewModels\MatchViewModel.cs" />
+    <Compile Include="ViewModels\MatchWithBetsViewModel.cs" />
     <Compile Include="ViewModels\OddViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
     <Compile Include="ViewModels\SportWithIdAndName.cs" />

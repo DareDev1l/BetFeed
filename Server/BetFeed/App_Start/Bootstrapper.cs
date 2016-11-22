@@ -30,13 +30,19 @@ namespace BetFeed.App_Start
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Sport, SportViewModel>()
                     .ForMember(dest => dest.Categories, opt => opt.Ignore());
+
                 cfg.CreateMap<Event, EventViewModel>()
                     .ForMember(dest => dest.MatchCount, opt => opt.Ignore());
+
                 cfg.CreateMap<Match, MatchViewModel>();
+                cfg.CreateMap<Bet, BetViewModel>();
+                cfg.CreateMap<Odd, OddViewModel>();
+                cfg.CreateMap<Match, MatchWithBetsViewModel>();
 
                 cfg.CreateMap<Sport, SportWithNameAndId>()
                     .ForMember(dest => dest.SportId, opt => opt.MapFrom(sport => sport.Id))
-                    .ForMember(dest => dest.SportName, opt => opt.MapFrom(sport => sport.Name));
+                    .ForMember(dest => dest.SportName, opt => opt.MapFrom(sport => sport.Name))
+                    .ForMember(dest => dest.EventsCount, opt => opt.MapFrom(sport => sport.Events.Count));
 
                 cfg.CreateMap<Event, EventWithMatchesViewModel>();
             });
@@ -70,7 +76,7 @@ namespace BetFeed.App_Start
             builder.RegisterType<SportRepository>().As<IRepository<Sport>>();
             builder.RegisterType<EfRepository<Event>>().As<IRepository<Event>>();
             builder.RegisterType<EfRepository<Bet>>().As<IRepository<Bet>>();
-            builder.RegisterType<EfRepository<Match>>().As<IRepository<Match>>();
+            builder.RegisterType<MatchRepository>().As<IRepository<Match>>();
             builder.RegisterType<EfRepository<Odd>>().As<IRepository<Odd>>();
 
             // Register Services

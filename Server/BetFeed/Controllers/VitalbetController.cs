@@ -1,4 +1,6 @@
 ﻿using BetFeed.Services.Inferfaces;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -19,7 +21,7 @@ namespace BetFeed.Controllers
             await this.vitalBetService.UpdateSportsFeed();
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task SeedSportsFeed()
         {
             await this.vitalBetService.SeedSportsFeed();

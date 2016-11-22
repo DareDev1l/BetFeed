@@ -10,5 +10,7 @@ namespace BetFeed.ViewModels
         public string SportName { get; set; }
 
         public int SportId { get; set; }
+
+        public int EventsCount { get; set; }
     }
 }

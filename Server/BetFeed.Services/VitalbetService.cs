@@ -22,14 +22,9 @@ namespace BetFeed.Services
         private IRepository<Bet> betRepository;
 
 
-        public VitalbetService(IRepository<Sport> sportRepository, IRepository<Odd> oddRepository,
-                               IRepository<Event> eventRepository, IRepository<Match> matchRepository, IRepository<Bet> betRepository)
+        public VitalbetService(IRepository<Sport> sportRepository)
         {
             this.sportRepository = sportRepository;
-            this.oddRepository = oddRepository;
-            this.eventRepository = eventRepository;
-            this.matchRepository = matchRepository;
-            this.betRepository = betRepository;
         }
 
         public async Task UpdateSportsFeed()

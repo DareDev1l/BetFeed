@@ -32,6 +32,7 @@ namespace BetFeed.Infrastructure.Repository
                 return;
             }
 
+            /*
             // Eager load the hierarchy in originalEntity
             foreach (var sportEvent in originalEntity.Events)
             {
@@ -52,6 +53,7 @@ namespace BetFeed.Infrastructure.Repository
                     }
                 }
             }
+            */
 
             foreach (var sportEvent in entity.Events)
             {

@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{22C1D81D-6940-4128-B768-49CD81C81B0C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{6E46599E-DC85-4FFD-8615-8917BF3DD0EE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BetFeed.Infrastructure</RootNamespace>
-    <AssemblyName>BetFeed.Infrastructure</AssemblyName>
+    <RootNamespace>BetFeed.Updater</RootNamespace>
+    <AssemblyName>BetFeed.Updater</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,21 +52,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BetFeedContext.cs" />
+    <Compile Include="BetFeedUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\EfRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\MatchRepository.cs" />
-    <Compile Include="Repository\SportRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BetFeed.Infrastructure\BetFeed.Infrastructure.csproj">
+      <Project>{22c1d81d-6940-4128-b768-49cd81c81b0c}</Project>
+      <Name>BetFeed.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BetFeed.Models\BetFeed.Models.csproj">
       <Project>{8afc1829-b192-46bc-9eb0-952f5b3c9ec1}</Project>
       <Name>BetFeed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BetFeed.Services\BetFeed.Services.csproj">
+      <Project>{00de2c74-2670-4831-b35a-c908e886b40e}</Project>
+      <Name>BetFeed.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
