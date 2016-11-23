@@ -12,5 +12,9 @@ namespace BetFeed.ViewModels
         public string Name { get; set; }
 
         public ICollection<BetViewModel> Bets { get; set; }
+
+        public string First { get; set; }
+
+        public string Second { get; set; }
     }
 }

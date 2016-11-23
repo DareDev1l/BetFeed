@@ -917,6 +917,7 @@
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Services\EventsService.js" />
+    <Content Include="Services\MatchesService.js" />
     <Content Include="Services\SportsService.js" />
     <Content Include="Views\event-details.html" />
     <Content Include="Views\sport-details.html" />

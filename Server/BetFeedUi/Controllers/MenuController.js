@@ -14,7 +14,5 @@
                         console.log("Error: " + JSON.stringify(err));
                     }
                 );;
-
-        console.log("menu ctrl");
     }]);
 })();

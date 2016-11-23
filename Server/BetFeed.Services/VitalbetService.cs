@@ -16,19 +16,14 @@ namespace BetFeed.Services
     {
         private string sportsFeedXmlUri = "http://vitalbet.net/sportxml";
         private IRepository<Sport> sportRepository;
-        private IRepository<Odd> oddRepository;
-        private IRepository<Event> eventRepository;
-        private IRepository<Match> matchRepository;
-        private IRepository<Bet> betRepository;
-
-
+        
         public VitalbetService(IRepository<Sport> sportRepository)
         {
             this.sportRepository = sportRepository;
         }
 
         public async Task UpdateSportsFeed()
-        {
+        {            
             var sportsList = await this.ParseSportsFeedFromXml();
 
             foreach (var sport in sportsList)

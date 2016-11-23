@@ -37,7 +37,10 @@ namespace BetFeed.App_Start
                 cfg.CreateMap<Match, MatchViewModel>();
                 cfg.CreateMap<Bet, BetViewModel>();
                 cfg.CreateMap<Odd, OddViewModel>();
-                cfg.CreateMap<Match, MatchWithBetsViewModel>();
+
+                cfg.CreateMap<Match, MatchWithBetsViewModel>()
+                    .ForMember(dest => dest.First, opt => opt.MapFrom(match => match.Name.Split('-')[0]))
+                    .ForMember(dest => dest.Second, opt => opt.MapFrom(match => match.Name.Split('-')[1]));
 
                 cfg.CreateMap<Sport, SportWithNameAndId>()
                     .ForMember(dest => dest.SportId, opt => opt.MapFrom(sport => sport.Id))

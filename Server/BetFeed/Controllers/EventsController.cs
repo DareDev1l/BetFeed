@@ -43,7 +43,7 @@ namespace BetFeed.Controllers
             
             foreach (var match in sportEvent.Matches)
             {
-                if (!DateHelper.IsWithin24Hours(match.StartDate))
+                if (!DateHelper.IsWithin24Hours(match.StartDate) && match.Bets.Count > 0)
                 {
                     matchesToRemove.Add(match);
                 }

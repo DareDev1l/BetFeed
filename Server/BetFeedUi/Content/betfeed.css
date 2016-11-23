@@ -1,4 +1,12 @@
-﻿.match-date {
+﻿.list-group-item {
+    border: none !important;
+}
+
+.event-header {
+    margin-bottom: 45px;
+}
+
+.match-date {
     padding: 5px;
     margin-right:4px !important;
     margin-bottom : 4px;
@@ -12,14 +20,6 @@
     margin-bottom : 4px;
 }
 
-.list-group-item {
-    border: none !important;
-}
-
-.event-header {
-    margin-bottom: 45px;
-}
-
 .match-holder {
     border-bottom: 1px solid black;
     border-left: 1px solid black;
@@ -28,4 +28,44 @@
 .match-holder:hover {
     background-color: #375A7F;
     cursor: pointer;
+}
+
+.bet-holder {
+    margin-bottom: 15px;
+}
+
+.bet-holder:hover {
+    border: 3px solid gray;
+    border-radius: 5px;
+}
+
+.bet-name {
+    padding: 5px;
+    background-color: #375A7F;
+    margin-bottom: 5px;
+}
+
+.odd-holder {
+    margin-bottom : 2px;
+    border-bottom: 1px solid gray;
+}
+
+.odd-holder:hover {
+    background-color: #4d4d4d;
+    cursor: pointer;
+}
+
+.odd-name, .odd-special-bet-value, .odd-value {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.odd-value {
+    background-color: #449d44;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.scrollable {
+    overflow: scroll;
 }
