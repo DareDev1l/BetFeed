@@ -57,5 +57,17 @@ namespace BetFeed.Controllers
 
             return Json(matchViewModel);
         }
+
+        public IHttpActionResult ByName(string name)
+        {
+            if(String.IsNullOrEmpty(name))
+            {
+                return BadRequest("You must pass a name.");
+            }
+
+            var matchesByName = this.matchRepository.GetMany(match => match.Name.Contains(name));
+
+            return Json(matchesByName);
+        }
     }
 }
