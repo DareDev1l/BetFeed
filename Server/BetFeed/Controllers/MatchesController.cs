@@ -35,9 +35,25 @@ namespace BetFeed.Controllers
             {
                 return NotFound();
             }
-
-            // add mapper to include First and Second string properties for each of the player/team names
+            
             var matchViewModel = Mapper.Map<Match, MatchWithBetsViewModel>(match);
+
+            // If name of a model is "1" or "2", change it to the competitor's name
+            foreach (var bet in matchViewModel.Bets)
+            {
+                foreach (var odd in bet.Odds)
+                {
+                    if(odd.Name == "1")
+                    {
+                        odd.Name = matchViewModel.First;
+                    }
+
+                    if(odd.Name == "2")
+                    {
+                        odd.Name = matchViewModel.Second;
+                    }
+                }
+            }
 
             return Json(matchViewModel);
         }
