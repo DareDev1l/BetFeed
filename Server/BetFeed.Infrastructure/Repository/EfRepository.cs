@@ -24,6 +24,8 @@ namespace BetFeed.Infrastructure.Repository
 
         public virtual void Add(T entity)
         {
+            entity.UpdatedOn = DateTime.Now;
+
             this.dbSet.Add(entity);
         }
 

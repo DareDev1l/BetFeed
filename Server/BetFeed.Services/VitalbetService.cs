@@ -47,7 +47,11 @@ namespace BetFeed.Services
         private async Task<List<Sport>> ParseSportsFeedFromXml()
         {
             var xmlString = await this.GetSportsXml();
-            XmlReader xmlReader = XmlReader.Create(new StringReader(xmlString));
+
+            var xmlReaderSettings = new XmlReaderSettings();
+
+            xmlReaderSettings.DtdProcessing = DtdProcessing.Ignore;
+            XmlReader xmlReader = XmlReader.Create(new StringReader(xmlString), xmlReaderSettings);
 
             var sportsList = new List<Sport>();
             var currentSport = new Sport();

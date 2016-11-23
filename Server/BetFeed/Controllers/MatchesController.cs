@@ -43,12 +43,14 @@ namespace BetFeed.Controllers
             {
                 foreach (var odd in bet.Odds)
                 {
-                    if(odd.Name == "1")
+                    var hasDashesInPlayerName = matchViewModel.Name.Split('-').Length > 2;
+
+                    if (odd.Name == "1" && !hasDashesInPlayerName)
                     {
                         odd.Name = matchViewModel.First;
                     }
 
-                    if(odd.Name == "2")
+                    if(odd.Name == "2" && !hasDashesInPlayerName)
                     {
                         odd.Name = matchViewModel.Second;
                     }
@@ -68,6 +70,28 @@ namespace BetFeed.Controllers
             var matchesByName = this.matchRepository.GetMany(match => match.Name.Contains(name));
 
             return Json(matchesByName);
+        }
+
+        // Returns new matches for given event since a given date
+        [HttpPost]
+        public IHttpActionResult Delete(int matchId)
+        {
+            if (matchId == 0)
+            {
+                return BadRequest("You must pass match id!");
+            }
+
+            var match = this.matchRepository.GetById(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            this.matchRepository.Delete(match);
+            this.matchRepository.SaveChanges();
+
+            return Ok();
         }
     }
 }

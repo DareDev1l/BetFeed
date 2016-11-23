@@ -58,5 +58,26 @@ namespace BetFeed.Controllers
 
             return Json(eventViewModel);
         }
+
+        // Returns new matches for given event since a given date
+        [HttpGet]
+        public IHttpActionResult NewMatches(int eventId, DateTime after)
+        {
+            if (eventId == 0)
+            {
+                return BadRequest("You must pass match id!");
+            }
+
+            var sportEvent = this.eventRepository.GetById(eventId);
+
+            if (sportEvent == null)
+            {
+                return NotFound();
+            }
+
+            var newMatches = sportEvent.Matches.Where(match => match.UpdatedOn > after);
+
+            return Json(newMatches);
+        }
     }
 }
