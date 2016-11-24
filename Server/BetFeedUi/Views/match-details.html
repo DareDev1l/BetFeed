@@ -6,7 +6,7 @@
     <div ng-if="!sportCtrl.event.Name">
         <h2>Please select an event.</h2>
     </div>
-    <div ng-repeat="match in sportCtrl.event.Matches | orderBy : 'StartDate'" class="match-holder">
+    <div ng-repeat="match in sportCtrl.event.Matches | orderBy : 'StartDate' | filter : matchSearch" class="match-holder">
         <div ng-click="sportCtrl.selectMatch(match.Id)" data-toggle="modal" data-target="#betsModal">
             <div class="match-date">
                 <span class="glyphicon glyphicon-time"></span>

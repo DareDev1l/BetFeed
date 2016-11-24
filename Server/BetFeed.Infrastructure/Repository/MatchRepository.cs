@@ -21,7 +21,10 @@ namespace BetFeed.Infrastructure.Repository
 
         public override Match GetById(int id)
         {
-            return this.dbSet.Include("Bets.Odds").FirstOrDefault(x => x.Id == id);
+            return this.dbSet.Include
+                (match => match.Bets.Select
+                (bet => bet.Odds))
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }

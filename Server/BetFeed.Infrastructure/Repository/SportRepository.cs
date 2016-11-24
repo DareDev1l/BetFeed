@@ -31,30 +31,6 @@ namespace BetFeed.Infrastructure.Repository
                 this.Add(entity);
                 return;
             }
-
-            /*
-            // Eager load the hierarchy in originalEntity
-            foreach (var sportEvent in originalEntity.Events)
-            {
-                var matches = sportEvent.Matches;
-
-                foreach (var match in matches)
-                {
-                    var bets = match.Bets;
-
-                    foreach (var bet in bets)
-                    {
-                        var odds = bet.Odds;
-
-                        foreach (var odd in odds)
-                        {
-                            var oddId = odd.Id;
-                        }
-                    }
-                }
-            }
-            */
-
             foreach (var sportEvent in entity.Events)
             {
                 // If event exists in original entity check for matches to update
