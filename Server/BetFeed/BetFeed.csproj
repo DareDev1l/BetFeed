@@ -154,16 +154,16 @@
     </Compile>
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\BetViewModel.cs" />
-    <Compile Include="ViewModels\CategoryViewModel.cs" />
-    <Compile Include="ViewModels\EventViewModel.cs" />
-    <Compile Include="ViewModels\EventWithMatchesViewModel.cs" />
-    <Compile Include="ViewModels\MatchViewModel.cs" />
-    <Compile Include="ViewModels\MatchWithBetsViewModel.cs" />
-    <Compile Include="ViewModels\NewMatchesViewModel.cs" />
-    <Compile Include="ViewModels\OddViewModel.cs" />
-    <Compile Include="ViewModels\SportViewModel.cs" />
-    <Compile Include="ViewModels\SportWithIdAndName.cs" />
+    <Compile Include="ViewModels\Bet\BetViewModel.cs" />
+    <Compile Include="ViewModels\Event\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\Event\EventViewModel.cs" />
+    <Compile Include="ViewModels\Event\EventWithMatchesViewModel.cs" />
+    <Compile Include="ViewModels\Match\MatchViewModel.cs" />
+    <Compile Include="ViewModels\Match\MatchWithBetsViewModel.cs" />
+    <Compile Include="ViewModels\Match\NewMatchesViewModel.cs" />
+    <Compile Include="ViewModels\Odd\OddViewModel.cs" />
+    <Compile Include="ViewModels\Sport\SportViewModel.cs" />
+    <Compile Include="ViewModels\Sport\SportWithIdAndName.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -192,9 +192,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Sport\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

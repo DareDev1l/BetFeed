@@ -6,10 +6,10 @@
             </div>
             <div class="panel-body" >
                 <ul class="list-group">
-                    <li ng-repeat="eventCategory in sportCtrl.sport.Categories" class="list-group-item">
+                    <li ng-repeat="eventCategory in sportCtrl.sport.Categories | orderBy : 'Name' " class="list-group-item">
                         <h4>{{eventCategory.Name}} <span class="badge">{{eventCategory.Events.length}}</span></h4>
                         <ul style="list-style-type:none">
-                            <li ng-repeat="sportEvent in eventCategory.Events">
+                            <li ng-repeat="sportEvent in eventCategory.Events | orderBy : 'Name'">
                                 <a href="#/sport/{{sportCtrl.sport.Id}}" ng-click="sportCtrl.selectEvent(sportEvent.Id)">{{sportEvent.Name}}</a>
                             </li>
                         </ul>
@@ -23,7 +23,6 @@
     </div>
 
     <div class="col-lg-5 col-md-5 col-sm-5">
-        <h3>{{sportCtrl.event.RequestDate}}</h3>
         <h2 class="event-header">{{sportCtrl.event.Name}}</h2>
         <div ng-if="!sportCtrl.event.Matches.length && sportCtrl.event.Name">
             <h4>There are no matches in the next 24 hours.</h4>
@@ -31,7 +30,7 @@
         <div ng-if="!sportCtrl.event.Name">
             <h2>Please select an event.</h2>
         </div>
-        <div ng-repeat="match in sportCtrl.event.Matches" class="match-holder">
+        <div ng-repeat="match in sportCtrl.event.Matches | orderBy : 'StartDate'" class="match-holder">
             <div ng-click="sportCtrl.selectMatch(match.Id)" data-toggle="modal" data-target="#betsModal">
                 <div class="match-date">
                     <span class="glyphicon glyphicon-time"></span>
