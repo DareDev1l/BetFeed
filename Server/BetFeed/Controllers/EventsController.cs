@@ -65,7 +65,7 @@ namespace BetFeed.Controllers
         {
             if (eventId == 0)
             {
-                return BadRequest("You must pass match id!");
+                return BadRequest("You must pass event id!");
             }
 
             var sportEvent = this.eventRepository.GetById(eventId);
@@ -82,8 +82,7 @@ namespace BetFeed.Controllers
 
             return Json(newMatchesViewModel);
         }
-
-        // Returns new matches for given event since a given date
+        
         [HttpPost]
         public IHttpActionResult AddMatchToEvent(int matchId, int eventId)
         {

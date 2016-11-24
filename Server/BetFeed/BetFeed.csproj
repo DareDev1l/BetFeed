@@ -161,6 +161,7 @@
     <Compile Include="ViewModels\Match\MatchViewModel.cs" />
     <Compile Include="ViewModels\Match\MatchWithBetsViewModel.cs" />
     <Compile Include="ViewModels\Match\NewMatchesViewModel.cs" />
+    <Compile Include="ViewModels\Bet\NewBetsViewModel.cs" />
     <Compile Include="ViewModels\Odd\OddViewModel.cs" />
     <Compile Include="ViewModels\Sport\SportViewModel.cs" />
     <Compile Include="ViewModels\Sport\SportWithIdAndName.cs" />

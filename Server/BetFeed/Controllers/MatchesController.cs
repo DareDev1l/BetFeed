@@ -60,6 +60,55 @@ namespace BetFeed.Controllers
             return Json(matchViewModel);
         }
 
+        // Returns new bets for given match since a given date
+        [HttpGet]
+        public IHttpActionResult NewBets(int matchId, DateTime after)
+        {
+            if (matchId == 0)
+            {
+                return BadRequest("You must pass match id!");
+            }
+
+            var match = this.matchRepository.GetById(matchId);
+
+            if (match == null)
+            {
+                return NotFound();
+            }
+
+            var newBets = match.Bets.Where(bet => bet.UpdatedOn > after);
+            match.Bets = newBets.ToList();
+
+            var newBetsViewModel = Mapper.Map<Match, NewBetsViewModel>(match);
+
+            return Json(newBetsViewModel);
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddBetToMatch(int betId, int matchId)
+        {
+            var match = this.matchRepository.GetById(matchId);
+
+            var bet = new Bet();
+            bet.Id = betId;
+            bet.Name = string.Format("Bet {0}", betId);
+            bet.Odds = new HashSet<Odd>();
+            bet.Odds.Add(new Odd()
+            {
+                Id = betId + 11,
+                Name = "RandomOdd " + betId,
+                SpecialBetValue = betId % 12,
+                Value = betId % 4 + 1,
+            });
+
+            match.Bets.Add(bet);
+
+            this.matchRepository.Update(match);
+            this.matchRepository.SaveChanges();
+
+            return Ok();
+        }
+
         public IHttpActionResult ByName(string name)
         {
             if(String.IsNullOrEmpty(name))

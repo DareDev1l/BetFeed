@@ -9,6 +9,7 @@ namespace BetFeed.ViewModels
         public NewMatchesViewModel()
         {
             this.RequestDate = DateTime.Now;
+            this.Matches = new HashSet<MatchViewModel>();
         }
 
         public DateTime RequestDate { get; set; }
