@@ -1,76 +1,9 @@
 ﻿<div class="row" ng-controller="SportsController as sportCtrl">
-    <div class="col-lg-3 col-md-3 col-sm-4" >
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="panel-title"><h3>{{sportCtrl.sport.Name}}</h3></div>
-            </div>
-            <div class="panel-body" >
-                <ul class="list-group">
-                    <li ng-repeat="eventCategory in sportCtrl.sport.Categories | orderBy : 'Name' " class="list-group-item">
-                        <h4>{{eventCategory.Name}} <span class="badge">{{eventCategory.Events.length}}</span></h4>
-                        <ul style="list-style-type:none">
-                            <li ng-repeat="sportEvent in eventCategory.Events | orderBy : 'Name'">
-                                <a href="#/sport/{{sportCtrl.sport.Id}}" ng-click="sportCtrl.selectEvent(sportEvent.Id)">{{sportEvent.Name}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <div ng-include src="'Views/event-details.html'"></div>
 
-    <div class="col-lg-1 col-md-1 col-sm-1">
-    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
 
-    <div class="col-lg-5 col-md-5 col-sm-5">
-        <h2 class="event-header">{{sportCtrl.event.Name}}</h2>
-        <div ng-if="!sportCtrl.event.Matches.length && sportCtrl.event.Name">
-            <h4>There are no matches in the next 24 hours.</h4>
-        </div>
-        <div ng-if="!sportCtrl.event.Name">
-            <h2>Please select an event.</h2>
-        </div>
-        <div ng-repeat="match in sportCtrl.event.Matches | orderBy : 'StartDate'" class="match-holder">
-            <div ng-click="sportCtrl.selectMatch(match.Id)" data-toggle="modal" data-target="#betsModal">
-                <div class="match-date">
-                    <span class="glyphicon glyphicon-time"></span>
-                    {{match.StartDate | date : 'dd MMM - HH:mm'}}
-                </div>
-                <div class="match-name">
-                    {{match.Name}}
-                </div>
-            </div>
-        </div>
-    </div>
+    <div ng-include src="'Views/match-details.html'"></div>
 
-    <div class="modal fade" id="betsModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">[1] {{sportCtrl.match.Name}} [2]</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="tab-content">
-                        <div class="bet-holder" ng-repeat="bet in sportCtrl.match.Bets | orderBy : 'Name'">
-                            <div class="bet-name">
-                                <span>{{bet.Name}}</span>
-                            </div>
-                            <div class="odd-holder" ng-repeat="odd in bet.Odds">
-                                <div class="odd-name">
-                                    {{odd.Name}}
-                                </div>
-                                <div class="odd-special-bet-value" ng-if="odd.SpecialBetValue">
-                                    {{odd.SpecialBetValue}}
-                                </div>
-                                <div class="odd-value" data-toggle="tooltip" data-placement="right" title="Coefficient">
-                                    {{odd.Value | number : 2}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div ng-include src="'Views/bet-details.html'"></div>
 </div>

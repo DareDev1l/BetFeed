@@ -1,0 +1,30 @@
+﻿<div class="modal fade" id="betsModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">[1] {{sportCtrl.match.Name}} [2]</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div class="bet-holder" ng-repeat="bet in sportCtrl.match.Bets | orderBy : 'Name'">
+                        <div class="bet-name">
+                            <span>{{bet.Name}}</span>
+                        </div>
+                        <div class="odd-holder" ng-repeat="odd in bet.Odds">
+                            <div class="odd-name">
+                                {{odd.Name}}
+                            </div>
+                            <div class="odd-special-bet-value" ng-if="odd.SpecialBetValue">
+                                {{odd.SpecialBetValue}}
+                            </div>
+                            <div class="odd-value" data-toggle="tooltip" data-placement="right" title="Coefficient">
+                                {{odd.Value | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

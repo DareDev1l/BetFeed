@@ -1,0 +1,20 @@
+﻿<div class="col-lg-5 col-md-5 col-sm-5">
+    <h3 class="event-header">{{sportCtrl.event.Name}}</h3>
+    <div ng-if="!sportCtrl.event.Matches.length && sportCtrl.event.Name">
+        <h4>There are no matches in the next 24 hours.</h4>
+    </div>
+    <div ng-if="!sportCtrl.event.Name">
+        <h2>Please select an event.</h2>
+    </div>
+    <div ng-repeat="match in sportCtrl.event.Matches | orderBy : 'StartDate'" class="match-holder">
+        <div ng-click="sportCtrl.selectMatch(match.Id)" data-toggle="modal" data-target="#betsModal">
+            <div class="match-date">
+                <span class="glyphicon glyphicon-time"></span>
+                {{match.StartDate | date : 'dd MMM - HH:mm'}}
+            </div>
+            <div class="match-name">
+                {{match.Name}}
+            </div>
+        </div>
+    </div>
+</div>

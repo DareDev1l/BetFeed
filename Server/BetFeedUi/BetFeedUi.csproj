@@ -919,7 +919,9 @@
     <Content Include="Services\EventsService.js" />
     <Content Include="Services\MatchesService.js" />
     <Content Include="Services\SportsService.js" />
+    <Content Include="Views\bet-details.html" />
     <Content Include="Views\event-details.html" />
+    <Content Include="Views\match-details.html" />
     <Content Include="Views\sport-details.html" />
     <Content Include="Web.config" />
   </ItemGroup>
