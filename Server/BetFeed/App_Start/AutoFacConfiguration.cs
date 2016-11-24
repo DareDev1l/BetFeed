@@ -27,12 +27,6 @@ namespace BetFeed.App_Start
             // Register DbContext
             builder.RegisterType<BetFeedContext>().AsSelf();
 
-            // Register generic repository
-            builder.RegisterAssemblyTypes(typeof(IRepository<Sport>).Assembly)
-                .Where(t => t.Name.Equals("IRepository"))
-                .AsImplementedInterfaces()
-                .InstancePerRequest();
-
             //Register custom repositories
             builder.RegisterType<SportRepository>().As<IRepository<Sport>>();
             builder.RegisterType<EfRepository<Event>>().As<IRepository<Event>>();
