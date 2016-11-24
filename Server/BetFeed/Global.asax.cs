@@ -14,7 +14,8 @@ namespace BetFeed
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            Bootstrapper.Run();
+            AutoMapperConfiguration.Configure();
+            AutoFacConfiguration.Configure();
         }
     }
 }
