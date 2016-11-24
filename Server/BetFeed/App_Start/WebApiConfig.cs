@@ -20,6 +20,11 @@ namespace BetFeed
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "UpdateRoutes",
+                routeTemplate: "api/{controller}/{action}"
+            );
         }
     }
 }

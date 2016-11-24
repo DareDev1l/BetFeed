@@ -23,6 +23,7 @@
     </div>
 
     <div class="col-lg-5 col-md-5 col-sm-5">
+        <h3>{{sportCtrl.event.RequestDate}}</h3>
         <h2 class="event-header">{{sportCtrl.event.Name}}</h2>
         <div ng-if="!sportCtrl.event.Matches.length && sportCtrl.event.Name">
             <h4>There are no matches in the next 24 hours.</h4>

@@ -33,6 +33,8 @@ namespace BetFeed.App_Start
 
                 cfg.CreateMap<Event, EventViewModel>()
                     .ForMember(dest => dest.MatchCount, opt => opt.Ignore());
+                cfg.CreateMap<Event, NewMatchesViewModel>()
+                    .ForMember(dest => dest.RequestDate, opt => opt.Ignore());
 
                 cfg.CreateMap<Match, MatchViewModel>();
                 cfg.CreateMap<Bet, BetViewModel>();
@@ -47,7 +49,8 @@ namespace BetFeed.App_Start
                     .ForMember(dest => dest.SportName, opt => opt.MapFrom(sport => sport.Name))
                     .ForMember(dest => dest.EventsCount, opt => opt.MapFrom(sport => sport.Events.Count));
 
-                cfg.CreateMap<Event, EventWithMatchesViewModel>();
+                cfg.CreateMap<Event, EventWithMatchesViewModel>()
+                    .ForMember(dest => dest.RequestDate, opt => opt.Ignore());
             });
 
             Mapper.AssertConfigurationIsValid();

@@ -71,27 +71,5 @@ namespace BetFeed.Controllers
 
             return Json(matchesByName);
         }
-
-        // Returns new matches for given event since a given date
-        [HttpPost]
-        public IHttpActionResult Delete(int matchId)
-        {
-            if (matchId == 0)
-            {
-                return BadRequest("You must pass match id!");
-            }
-
-            var match = this.matchRepository.GetById(matchId);
-
-            if (match == null)
-            {
-                return NotFound();
-            }
-
-            this.matchRepository.Delete(match);
-            this.matchRepository.SaveChanges();
-
-            return Ok();
-        }
     }
 }

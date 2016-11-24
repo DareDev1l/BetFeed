@@ -13,6 +13,6 @@
                     function error(err) {
                         console.log("Error: " + JSON.stringify(err));
                     }
-                );;
+                );
     }]);
 })();

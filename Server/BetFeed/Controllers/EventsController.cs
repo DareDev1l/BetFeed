@@ -76,8 +76,31 @@ namespace BetFeed.Controllers
             }
 
             var newMatches = sportEvent.Matches.Where(match => match.UpdatedOn > after);
+            sportEvent.Matches = newMatches.ToList();
 
-            return Json(newMatches);
+            var newMatchesViewModel = Mapper.Map<Event, NewMatchesViewModel>(sportEvent);
+
+            return Json(newMatchesViewModel);
+        }
+
+        // Returns new matches for given event since a given date
+        [HttpPost]
+        public IHttpActionResult AddMatchToEvent(int matchId, int eventId)
+        {
+            var sportEvent = this.eventRepository.GetById(eventId);
+
+            var match = new Match();
+            match.Id = matchId;
+            match.MatchType = "PreMatch";
+            match.StartDate = DateTime.Now.AddHours(2);
+            match.Name = string.Format("Team1{0} - Team2{0}", matchId);
+
+            sportEvent.Matches.Add(match);
+
+            this.eventRepository.Update(sportEvent);
+            this.eventRepository.SaveChanges();
+
+            return Ok();
         }
     }
 }
