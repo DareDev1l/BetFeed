@@ -4,15 +4,12 @@
 
     app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
+            .when('/', {
+                templateUrl: 'Views/home.html',
+            })
             .when('/sport/:id', {
                 templateUrl: 'Views/sport-details.html',
-                controller: 'SportsController'//,
-                //controllerAs: 'sportCtrl'
-            })
-            .when('/sport/:sportId/:eventId', {
-                templateUrl: 'Views/sport-details.html',
-                controller: 'SportsController',
-                controllerAs: 'sportCtrl'
+                controller: 'SportsController'
             })
             .otherwise({
                 redirectTo : '/'
