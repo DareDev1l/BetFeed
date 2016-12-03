@@ -4,7 +4,7 @@
     app.controller("SportsController", ['SportsService', 'EventsService', 'MatchesService', '$routeParams', '$http', '$interval',
                                         function (SportsService, EventsService, MatchesService, $routeParams, $http, $interval) {
         var self = this;
-        var updateIntervalInSeconds = 20;
+        var updateIntervalInSeconds = 60;
         var sportId = $routeParams.id;
 
         this.sport = {};

@@ -17,11 +17,8 @@ namespace BetFeed.Infrastructure.Repository
         {
             this.dataContext = context;
             this.dbSet = this.dataContext.Set<Sport>();
-
-            // Eager load bets
         }
-
-        // TODO: load new bets and odds if matches are updated
+        
         public override void Update(Sport entity)
         {
             var originalEntity = this.GetById(entity.Id);
@@ -31,48 +28,19 @@ namespace BetFeed.Infrastructure.Repository
                 this.Add(entity);
                 return;
             }
+
             foreach (var sportEvent in entity.Events)
             {
                 // If event exists in original entity check for matches to update
-                if (originalEntity.Events.Any(ev => ev.Id == sportEvent.Id))
+                if (!originalEntity.Events.Any(ev => ev.Id == sportEvent.Id))
                 {
-                    var originalEntityEvent = originalEntity.Events.First(ev => ev.Id == sportEvent.Id);
-
-                    foreach (var match in sportEvent.Matches)
-                    {
-                        if (!originalEntityEvent.Matches.Any(m => m.Id == match.Id))
-                        {
-                            originalEntityEvent.Matches.Add(match);
-                        }
-                        else
-                        {
-                            var originalEntityMatch = originalEntityEvent.Matches.First(m => m.Id == match.Id);
-
-                            foreach (var bet in match.Bets)
-                            {
-                                if(!originalEntityMatch.Bets.Any(b => b.Id == bet.Id))
-                                {
-                                    originalEntityMatch.Bets.Add(bet);
-                                }
-                                else
-                                {
-                                    var originalEntityMatchBet = originalEntityMatch.Bets.First(b => b.Id == bet.Id);
-
-                                    foreach (var odd in bet.Odds)
-                                    {
-                                        if (!originalEntityMatchBet.Odds.Any(o => o.Id == odd.Id))
-                                        {
-                                            originalEntityMatchBet.Odds.Add(odd);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    originalEntity.Events.Add(sportEvent);
                 }
                 else
                 {
-                    originalEntity.Events.Add(sportEvent);
+                    var originalEntityEvent = originalEntity.Events.First(ev => ev.Id == sportEvent.Id);
+
+                    GetNewMatches(ref originalEntityEvent, sportEvent);
                 }
             }
 
@@ -83,6 +51,51 @@ namespace BetFeed.Infrastructure.Repository
         public override Sport GetById(int id)
         {
             return this.dbSet.Include("Events.Matches.Bets.Odds").FirstOrDefault(x => x.Id == id);
+        }
+
+        private void GetNewOdds(ref Bet originalBet, Bet newBet)
+        {
+            foreach (var odd in newBet.Odds)
+            {
+                if (!originalBet.Odds.Any(o => o.Id == odd.Id))
+                {
+                    originalBet.Odds.Add(odd);
+                }
+            }
+        }
+
+        private void GetNewBets(ref Match originalMatch, Match newMatch)
+        {
+            foreach (var bet in newMatch.Bets)
+            {
+                if (!originalMatch.Bets.Any(b => b.Id == bet.Id))
+                {
+                    originalMatch.Bets.Add(bet);
+                }
+                else
+                {
+                    var originalEntityMatchBet = originalMatch.Bets.First(b => b.Id == bet.Id);
+
+                    GetNewOdds(ref originalEntityMatchBet, bet);
+                }
+            }
+        }
+
+        private void GetNewMatches(ref Event originalEvent, Event newEvent)
+        {
+            foreach (var match in newEvent.Matches)
+            {
+                if (!originalEvent.Matches.Any(m => m.Id == match.Id))
+                {
+                    originalEvent.Matches.Add(match);
+                }
+                else
+                {
+                    var originalEntityMatch = originalEvent.Matches.First(m => m.Id == match.Id);
+
+                    GetNewBets(ref originalEntityMatch, match);
+                }
+            }
         }
     }
 }

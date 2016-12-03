@@ -159,8 +159,9 @@ namespace BetFeed.Services
 
                     if (xmlReader.GetAttribute("SpecialBetValue") != null)
                     {
-                        currentOdd.SpecialBetValue = decimal.Parse(xmlReader.GetAttribute("SpecialBetValue"));
+                        currentOdd.SpecialBetValue = xmlReader.GetAttribute("SpecialBetValue");
                     }
+
                     currentBet.Odds.Add(currentOdd);
 
                     continue;

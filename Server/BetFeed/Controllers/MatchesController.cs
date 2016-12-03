@@ -97,7 +97,7 @@ namespace BetFeed.Controllers
             {
                 Id = betId + 11,
                 Name = "RandomOdd " + betId,
-                SpecialBetValue = betId % 12,
+                SpecialBetValue = (betId % 12).ToString(),
                 Value = betId % 4 + 1,
             });
 

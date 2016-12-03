@@ -13,8 +13,5 @@ namespace BetFeed.Models
         public bool IsLive { get; set; }
 
         public ICollection<Odd> Odds { get; set; }
-
-        //[ForeignKey("Match_Id")]
-        //public int MatchId { get; set; }
     }
 }
